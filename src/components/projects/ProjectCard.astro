@@ -1,0 +1,54 @@
+---
+import type { Project } from '../../types/project';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card">
+  <header>
+    <h3>{project.title}</h3>
+  </header>
+  <p>{project.shortDescription}</p>
+  {project.technologies && project.technologies.length > 0 && (
+    <ul class="project-technologies">
+      {project.technologies.map((tech) => (
+        <li>{tech}</li>
+      ))}
+    </ul>
+  )}
+</article>
+
+<style>
+  .project-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    background-color: var(--color-bg-surface);
+  }
+
+  .project-card h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-card p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    list-style: none;
+    padding: 0;
+  }
+
+  .project-technologies li {
+    font-size: 0.85rem;
+    color: var(--color-accent);
+  }
+</style>

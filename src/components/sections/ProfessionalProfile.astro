@@ -1,0 +1,94 @@
+---
+import { profile } from '../../data/profile';
+
+// Dividir el texto aprobado en dos párrafos para optimizar la legibilidad
+const paragraphs = [
+  'Desarrollador de software con experiencia en desarrollo de aplicaciones, automatización de procesos, integración y validación de APIs REST, pruebas funcionales y soporte a infraestructura tecnológica.',
+  'Trabajo principalmente con Python, Angular y bases de datos SQL, complementando el desarrollo con testing, documentación técnica y buenas prácticas de seguridad.',
+];
+---
+
+<div class="profile-content">
+  <div class="profile-narrative">
+    {paragraphs.map((p) => (
+      <p class="profile-text">{p}</p>
+    ))}
+  </div>
+
+  <div class="core-focus">
+    <h3 class="focus-title">Enfoque de trabajo</h3>
+    <ul class="focus-list">
+      {profile.coreAreas.map((area) => (
+        <li class="focus-item">
+          <span class="focus-dot" aria-hidden="true"></span>
+          <span class="focus-name">{area}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 780px;
+  }
+
+  .profile-narrative {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .profile-text {
+    font-size: var(--text-base);
+    line-height: var(--line-height-loose);
+    color: var(--color-text-secondary);
+  }
+
+  .profile-text:first-of-type {
+    color: var(--color-text-primary);
+    font-size: var(--text-lg);
+    line-height: var(--line-height-base);
+  }
+
+  .core-focus {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .focus-title {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .focus-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    padding: 0;
+    margin: 0;
+  }
+
+  .focus-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .focus-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,103 @@
+---
+---
+
+<a
+  href="#inicio"
+  id="back-to-top"
+  class="back-to-top"
+  aria-label="Volver arriba"
+>
+  <span class="back-to-top-icon" aria-hidden="true">↑</span>
+</a>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface-elevated);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.2s ease, visibility 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  /* Estado mejorado por JavaScript: se oculta arriba y aparece con scroll */
+  .back-to-top[data-enhanced="true"] {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .back-to-top[data-enhanced="true"].is-visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .back-to-top:hover {
+    background-color: var(--color-bg-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .back-to-top:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .back-to-top {
+      bottom: var(--space-md);
+      right: var(--space-md);
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: var(--text-sm);
+    }
+  }
+</style>
+
+<script>
+  function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    // Declarar soporte de JavaScript para activar el comportamiento dinámico
+    btn.setAttribute('data-enhanced', 'true');
+
+    const threshold = 400;
+
+    function handleScroll() {
+      if (window.scrollY > threshold) {
+        btn?.classList.add('is-visible');
+      } else {
+        btn?.classList.remove('is-visible');
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBackToTop);
+  } else {
+    initBackToTop();
+  }
+</script>

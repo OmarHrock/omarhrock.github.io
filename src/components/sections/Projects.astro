@@ -1,0 +1,39 @@
+---
+import { projects } from '../../data/projects';
+import ProjectCard from '../projects/ProjectCard.astro';
+---
+
+<div class="projects-wrapper">
+  {projects.length > 0 ? (
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  ) : (
+    <p class="empty-message">
+      Actualmente estoy documentando algunos de los proyectos y soluciones en los que he participado.
+    </p>
+  )}
+</div>
+
+<style>
+  .projects-wrapper {
+    width: 100%;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .empty-message {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+</style>

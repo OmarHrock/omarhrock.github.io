@@ -1,0 +1,41 @@
+---
+import type { AIAssistedPractice } from '../../types/aiAssisted';
+
+interface Props {
+  practice: AIAssistedPractice;
+}
+
+const { practice } = Astro.props;
+---
+
+<article class="practice-card">
+  <h3 class="practice-title">{practice.title}</h3>
+  <p class="practice-description">{practice.description}</p>
+</article>
+
+<style>
+  .practice-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .practice-title {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .practice-description {
+    font-size: var(--text-sm);
+    line-height: var(--line-height-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+</style>

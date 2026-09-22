@@ -1,0 +1,19 @@
+---
+import { experience } from '../../data/experience';
+import ExperienceItem from '../experience/ExperienceItem.astro';
+---
+
+<div class="experience-list">
+  {experience.map((item) => (
+    <ExperienceItem experience={item} />
+  ))}
+</div>
+
+<style>
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 860px;
+  }
+</style>

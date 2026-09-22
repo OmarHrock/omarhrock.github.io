@@ -1,0 +1,194 @@
+---
+import { skills } from '../../data/skills';
+import { profile } from '../../data/profile';
+import type { SkillCategory } from '../../types/skill';
+
+// Ordenar las tecnologías destacadas respetando exactamente el orden de profile.mainStack
+const featuredSkills = profile.mainStack
+  .map((techName) => skills.find((s) => s.name === techName && s.featured))
+  .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+// Configuración de categorías secundarias (excluyendo las featured para evitar duplicidad visual)
+const secondaryCategories: { key: SkillCategory; title: string }[] = [
+  { key: 'development', title: 'Desarrollo' },
+  { key: 'data', title: 'Datos' },
+  { key: 'apis-testing', title: 'APIs y testing' },
+  { key: 'tools-security', title: 'Herramientas y seguridad' },
+];
+
+// Conocimientos complementarios (Sistemas e infraestructura)
+const complementarySkills = skills.filter(
+  (s) => s.category === 'systems-infrastructure' && !s.featured
+);
+---
+
+<div class="technologies-container">
+  <!-- 1. Stack principal destacado -->
+  <div class="tech-featured-block">
+    <h3 class="block-title">Stack principal</h3>
+    <ul class="chips-list featured-list">
+      {featuredSkills.map((skill) => (
+        <li class="featured-chip">{skill.name}</li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- 2. Categorías secundarias de desarrollo, datos, APIs y herramientas -->
+  <div class="tech-grid">
+    {secondaryCategories.map((cat) => {
+      const categorySkills = skills.filter(
+        (s) => s.category === cat.key && !s.featured
+      );
+      return (
+        <div class="category-card">
+          <h3 class="category-title">{cat.title}</h3>
+          <ul class="chips-list">
+            {categorySkills.map((skill) => (
+              <li class="chip">{skill.name}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- 3. Conocimientos complementarios: Sistemas e infraestructura (Jerarquía secundaria) -->
+  <div class="complementary-block">
+    <div class="complementary-header">
+      <span class="complementary-badge">Conocimientos complementarios</span>
+      <h3 class="complementary-category-title">Sistemas e infraestructura</h3>
+    </div>
+    <ul class="chips-list complementary-list">
+      {complementarySkills.map((skill) => (
+        <li class="complementary-chip">{skill.name}</li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .technologies-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  /* 1. Stack Principal */
+  .tech-featured-block {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .block-title {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .chips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding: 0;
+    margin: 0;
+  }
+
+  .featured-chip {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.9rem;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  /* 2. Grid de Categorías Secundarias */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .tech-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .category-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .category-title {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .chip {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.65rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-normal);
+  }
+
+  /* 3. Conocimientos Complementarios: Sistemas e infraestructura */
+  .complementary-block {
+    background-color: rgba(26, 34, 52, 0.4);
+    border: 1px dashed var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .complementary-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .complementary-badge {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .complementary-category-title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .complementary-chip {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.3rem 0.6rem;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-normal);
+  }
+</style>

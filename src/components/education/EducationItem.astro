@@ -1,0 +1,83 @@
+---
+import type { Education } from '../../types/education';
+
+interface Props {
+  education: Education;
+}
+
+const { education } = Astro.props;
+
+let periodDisplay = '';
+if (education.startDate && education.endDate) {
+  periodDisplay = `${education.startDate} — ${education.endDate}`;
+} else if (education.startDate) {
+  periodDisplay = education.startDate;
+}
+---
+
+<article class="education-card">
+  <header class="education-header">
+    <h4 class="degree-title">{education.degree}</h4>
+    <p class="institution-period">
+      <span class="institution-name">{education.institution}</span>
+      {periodDisplay && (
+        <>
+          <span class="meta-separator" aria-hidden="true">·</span>
+          <span class="period-text">{periodDisplay}</span>
+        </>
+      )}
+    </p>
+  </header>
+</article>
+
+<style>
+  .education-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .education-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  /* El título del programa mantiene máxima jerarquía e importancia visual */
+  .degree-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .institution-period {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    margin: 0;
+  }
+
+  .institution-name {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+  }
+
+  .meta-separator {
+    color: var(--color-text-muted);
+  }
+
+  .period-text {
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono);
+    font-size: var(--text-xs);
+  }
+</style>

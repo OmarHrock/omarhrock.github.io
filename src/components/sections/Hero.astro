@@ -1,0 +1,238 @@
+---
+import { profile } from '../../data/profile';
+---
+
+<div class="hero">
+  <!-- Columna principal: Identidad, Título, Resumen y Acciones -->
+  <div class="hero-main">
+    <p class="hero-name">{profile.fullName}</p>
+    <h1 class="hero-title">{profile.title}</h1>
+    <p class="hero-summary">{profile.summary}</p>
+
+    <div class="hero-actions">
+      <a href="#experiencia" class="btn btn-primary">Ver experiencia</a>
+      <a href="#perfil" class="btn btn-secondary">Conocer mi perfil</a>
+    </div>
+  </div>
+
+  <!-- Columna técnica: Stack principal, Áreas profesionales y Capacidad complementaria -->
+  <div class="hero-technical">
+    <div class="tech-panel">
+      <!-- Stack principal -->
+      <div class="tech-group">
+        <h2 class="group-label">Stack principal</h2>
+        <ul class="stack-list">
+          {profile.mainStack.map((tech) => (
+            <li class="stack-item">{tech}</li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Áreas profesionales -->
+      <div class="tech-group">
+        <h2 class="group-label">Áreas profesionales</h2>
+        <p class="areas-text">{profile.coreAreas.join(' · ')}</p>
+      </div>
+
+      <!-- Capacidad complementaria (IA subordinada visualmente) -->
+      <div class="complementary-card">
+        <span class="complementary-tag">Capacidad complementaria</span>
+        <p class="complementary-title">
+          {profile.complementarySkills.join(' · ')}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+
+  /* Composición en 2 columnas para pantallas a partir de 900px (holgado y sin compresión) */
+  @media (min-width: 900px) {
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: var(--space-2xl);
+      min-height: calc(85vh - var(--header-height));
+    }
+  }
+
+  /* Columna Principal */
+  .hero-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-name {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-xs);
+  }
+
+  /* H1 Único y Dominante */
+  .hero-title {
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
+    }
+  }
+
+  .hero-summary {
+    font-size: var(--text-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text-secondary);
+    max-width: 54ch;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Acciones / Botones de navegación interna */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  @media (min-width: 480px) {
+    .hero-actions {
+      width: auto;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.35rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: #0b0f19;
+    border: 1px solid var(--color-accent);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: #0b0f19;
+  }
+
+  .btn-secondary {
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-bg-surface-elevated);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Columna Técnica */
+  .hero-technical {
+    width: 100%;
+  }
+
+  .tech-panel {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .tech-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .group-label {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Stack Chips Sobrios */
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding: 0;
+    margin: 0;
+  }
+
+  .stack-item {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.65rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .areas-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-base);
+    margin: 0;
+  }
+
+  /* Tarjeta de Capacidad Complementaria (Subordinada) */
+  .complementary-card {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .complementary-tag {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .complementary-title {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+  }
+</style>

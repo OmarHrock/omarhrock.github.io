@@ -1,0 +1,127 @@
+---
+import { contactInfo } from '../../data/contact';
+import { socialLinks } from '../../data/social';
+
+const linkedIn = socialLinks.find((link) => link.name.toLowerCase() === 'linkedin');
+---
+
+<div class="contact-container">
+  <p class="contact-intro">{contactInfo.introduction}</p>
+
+  <div class="contact-channels">
+    <!-- Canal: Correo Electrónico -->
+    <a href={`mailto:${contactInfo.email}`} class="contact-card email-card">
+      <div class="channel-content">
+        <span class="channel-type">Correo electrónico</span>
+        <span class="channel-text email-text">{contactInfo.email}</span>
+      </div>
+      <span class="channel-action">Enviar mensaje</span>
+    </a>
+
+    <!-- Canal: LinkedIn -->
+    {linkedIn && (
+      <a
+        href={linkedIn.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-card linkedin-card"
+      >
+        <div class="channel-content">
+          <span class="channel-type">{linkedIn.name}</span>
+          <span class="channel-text">Perfil profesional</span>
+        </div>
+        <span class="channel-action">{linkedIn.label || 'Ver perfil en LinkedIn'}</span>
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  .contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    width: 100%;
+    max-width: 860px;
+  }
+
+  .contact-intro {
+    font-size: var(--text-base);
+    line-height: var(--line-height-loose);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .contact-channels {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .contact-channels {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .contact-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-md);
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .contact-card:hover {
+    border-color: var(--color-border-subtle);
+    background-color: var(--color-bg-surface-elevated);
+  }
+
+  .contact-card:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+  }
+
+  .channel-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .channel-type {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .channel-text {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  /* Protección contra desbordamiento en pantallas móviles */
+  .email-text {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .channel-action {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .contact-card:hover .channel-action {
+    color: var(--color-accent-hover);
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/common/Section.astro';
+import Hero from '../components/sections/Hero.astro';
+import ProfessionalProfile from '../components/sections/ProfessionalProfile.astro';
+import Technologies from '../components/sections/Technologies.astro';
+import Experience from '../components/sections/Experience.astro';
+import Projects from '../components/sections/Projects.astro';
+import HowIWork from '../components/sections/HowIWork.astro';
+import AIAssisted from '../components/sections/AIAssisted.astro';
+import Formation from '../components/sections/Formation.astro';
+import Contact from '../components/sections/Contact.astro';
+import { profile } from '../data/profile';
+---
+
+<BaseLayout title={`${profile.fullName} | ${profile.title}`}>
+  <!-- 1. Inicio: Hero definitivo y presentación profesional -->
+  <Section id="inicio" class="section-hero">
+    <Hero />
+  </Section>
+
+  <!-- 2. Perfil profesional: Descripción profesional y enfoque de trabajo -->
+  <Section id="perfil" title="Perfil profesional">
+    <ProfessionalProfile />
+  </Section>
+
+  <!-- 3. Tecnologías: Stack principal, categorías y conocimientos complementarios -->
+  <Section id="tecnologias" title="Tecnologías">
+    <Technologies />
+  </Section>
+
+  <!-- 4. Experiencia: Trayectoria laboral cronológica documentada -->
+  <Section id="experiencia" title="Experiencia">
+    <Experience />
+  </Section>
+
+  <!-- 5. Proyectos: Módulo dinámico con estado vacío verificado -->
+  <Section id="proyectos" title="Proyectos">
+    <Projects />
+  </Section>
+
+  <!-- 6. Cómo trabajo: Flujo técnico metodológico estructurado -->
+  <Section id="como-trabajo" title="Cómo trabajo">
+    <HowIWork />
+  </Section>
+
+  <!-- 7. AI-Assisted Development: Capacidad complementaria secundaria -->
+  <Section id="ai-assisted" title="AI-Assisted Development">
+    <AIAssisted />
+  </Section>
+
+  <!-- 8. Formación: Formación académica e idiomas -->
+  <Section id="formacion" title="Formación">
+    <Formation />
+  </Section>
+
+  <!-- 9. Contacto: Canales directos de comunicación profesional -->
+  <Section id="contacto" title="Contacto">
+    <Contact />
+  </Section>
+</BaseLayout>
+
+<style>
+  .section-hero {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-xl);
+  }
+
+  .placeholder-box {
+    background-color: var(--color-bg-surface);
+    border: 1px dashed var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .placeholder-box p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    font-style: italic;
+    margin: 0;
+  }
+</style>

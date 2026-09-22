@@ -1,0 +1,53 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+  eyebrow?: string;
+  class?: string;
+}
+
+const { id, title, eyebrow, class: className } = Astro.props;
+---
+
+<section id={id} class:list={['site-section', className]}>
+  <div class="container">
+    {eyebrow && <span class="section-eyebrow">{eyebrow}</span>}
+    {title && <h2 class="section-title">{title}</h2>}
+    <div class="section-content">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .site-section {
+    scroll-margin-top: calc(var(--header-height) + 1.5rem);
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-section:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-eyebrow {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.01em;
+  }
+
+  .section-content {
+    width: 100%;
+  }
+</style>
