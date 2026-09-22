@@ -2,6 +2,8 @@
 
 Portafolio web profesional orientado a presentar experiencia laboral, competencias técnicas, proceso de trabajo y proyectos en desarrollo de software.
 
+**Sitio web publicado**: [https://omarhrock.github.io/](https://omarhrock.github.io/)
+
 ## Sobre el proyecto
 
 Este proyecto constituye el portafolio digital de Omar Arias, Software Developer. Ha sido diseñado e implementado con un enfoque centrado en rendimiento, accesibilidad semántica, claridad comunicativa y arquitectura modular. Su propósito es exponer de forma transparente y estructurada la trayectoria profesional, las metodologías de trabajo y las capacidades técnicas desarrolladas.
@@ -90,3 +92,7 @@ Los scripts definidos en el entorno de trabajo son:
 | `npm run check` | Ejecuta el diagnóstico de tipos TypeScript y la validación de sintaxis con `@astrojs/check`. |
 | `npm run build` | Compila y genera el sitio estático optimizado para producción en la carpeta `dist/`. |
 | `npm run preview` | Levanta un servidor local para previsualizar la compilación generada en `dist/`. |
+
+## Deployment
+
+El portafolio se encuentra publicado en **GitHub Pages** mediante **GitHub Actions**. Cada cambio integrado en la rama `main` ejecuta automáticamente un flujo de trabajo que compila el sitio estático y publica la nueva versión en producción en [https://omarhrock.github.io/](https://omarhrock.github.io/).
