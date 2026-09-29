@@ -17,50 +17,63 @@ const statusLabels: Record<Project['status'], string> = {
 const statusText = statusLabels[project.status] ?? 'Proyecto';
 const hasImages = Boolean(project.images && project.images.length > 0);
 const titleId = `project-${project.id}-title`;
+
+// Función para resaltar sutilmente números y estados clave sin añadir JS de cliente
+function formatResultText(text: string): string {
+  return text.replace(
+    /\b(123|157|HTTP 200)\b/g,
+    '<strong class="metric-highlight">$1</strong>'
+  );
+}
 ---
 
-<article class="project-card" aria-labelledby={titleId}>
-  <!-- Encabezado: Metadatos, Título y Descripción -->
-  <header class="card-header">
-    <div class="header-top">
-      <span class={`status-badge status-${project.status}`}>
-        <span class="status-dot" aria-hidden="true"></span>
-        {statusText}
-      </span>
-      {project.context && (
-        <span class="project-context">{project.context}</span>
+<article class={`project-card ${hasImages ? 'has-media' : 'no-media'}`} aria-labelledby={titleId}>
+  <!-- Bloque superior: Split (Imagen 1.15fr / Resumen + Tecnologías 0.85fr en >= 900px) -->
+  <div class="card-hero-split">
+    {hasImages && (
+      <figure class="project-media">
+        <img
+          src={project.images![0]}
+          alt={`Captura completa de la interfaz de ${project.title}`}
+          width="1270"
+          height="909"
+          loading="lazy"
+          decoding="async"
+          class="project-image"
+        />
+      </figure>
+    )}
+
+    <div class="project-summary-col">
+      <header class="card-header">
+        <div class="header-top">
+          <span class={`status-badge status-${project.status}`}>
+            <span class="status-dot" aria-hidden="true"></span>
+            {statusText}
+          </span>
+          {project.context && (
+            <span class="project-context">{project.context}</span>
+          )}
+        </div>
+
+        <h3 id={titleId} class="project-title">{project.title}</h3>
+        <p class="project-description">{project.shortDescription}</p>
+      </header>
+
+      {project.technologies && project.technologies.length > 0 && (
+        <div class="technologies-block">
+          <span class="tech-label">Tecnologías aplicadas:</span>
+          <ul class="tech-list" aria-label={`Tecnologías utilizadas en ${project.title}`}>
+            {project.technologies.map((tech) => (
+              <li class="tech-item">{tech}</li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
+  </div>
 
-    <h3 id={titleId} class="project-title">{project.title}</h3>
-    <p class="project-description">{project.shortDescription}</p>
-  </header>
-
-  <!-- Imagen opcional (solo se renderiza cuando existen imágenes físicas configuradas) -->
-  {hasImages && (
-    <figure class="project-media">
-      <img
-        src={project.images![0]}
-        alt={`Captura representativa de ${project.title}`}
-        loading="lazy"
-        decoding="async"
-        class="project-image"
-      />
-    </figure>
-  )}
-
-  <!-- Tecnologías principales (alta escaneabilidad) -->
-  {project.technologies && project.technologies.length > 0 && (
-    <div class="technologies-block">
-      <ul class="tech-list" aria-label={`Tecnologías utilizadas en ${project.title}`}>
-        {project.technologies.map((tech) => (
-          <li class="tech-item">{tech}</li>
-        ))}
-      </ul>
-    </div>
-  )}
-
-  <!-- Resultados técnicos validados (alto impacto para reclutadores) -->
+  <!-- Resultados técnicos validados (alto impacto visual con escaneo rápido) -->
   {project.results && project.results.length > 0 && (
     <div class="results-section">
       <h4 class="section-subtitle">Resultados técnicos validados</h4>
@@ -70,7 +83,7 @@ const titleId = `project-${project.id}-title`;
             <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>{result}</span>
+            <span class="result-text" set:html={formatResultText(result)} />
           </li>
         ))}
       </ul>
@@ -142,11 +155,33 @@ const titleId = `project-${project.id}-title`;
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
-    transition: border-color var(--transition-normal);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
 
   .project-card:hover {
     border-color: var(--color-border-subtle);
+  }
+
+  /* Split Layout para Desktop con Imagen */
+  .card-hero-split {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 900px) {
+    .project-card.has-media .card-hero-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+  }
+
+  .project-summary-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
   }
 
   /* Encabezado */
@@ -211,26 +246,41 @@ const titleId = `project-${project.id}-title`;
     max-width: 75ch;
   }
 
-  /* Media / Imagen opcional */
+  /* Media / Imagen con object-fit contain para preservar interfaz completa */
   .project-media {
     margin: 0;
     border-radius: var(--radius-md);
     overflow: hidden;
     border: 1px solid var(--color-border);
-    background-color: var(--color-bg-surface-elevated);
+    background-color: #080c14;
+    aspect-ratio: 1270 / 909;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .project-image {
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+    height: 100%;
+    aspect-ratio: 1270 / 909;
+    object-fit: contain;
     display: block;
   }
 
   /* Tecnologías */
   .technologies-block {
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .tech-label {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
   }
 
   .tech-list {
@@ -367,13 +417,15 @@ const titleId = `project-${project.id}-title`;
     text-decoration: none;
     min-height: 44px;
     cursor: pointer;
-    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
   }
 
   .btn-code:hover {
     background-color: var(--color-bg-surface-elevated);
     border-color: var(--color-accent);
     color: var(--color-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
   }
 
   .btn-code:focus-visible {
@@ -399,16 +451,31 @@ const titleId = `project-${project.id}-title`;
     text-decoration: none;
     min-height: 44px;
     cursor: pointer;
-    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
   }
 
   .btn-demo:hover {
     background-color: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
   }
 
   .btn-demo:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-offset);
+  }
+
+  /* Énfasis en métricas clave de resultados */
+  :global(.metric-highlight) {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-code:hover,
+    .btn-demo:hover {
+      transform: none;
+    }
   }
 </style>

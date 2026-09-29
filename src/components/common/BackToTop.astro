@@ -29,7 +29,7 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.2s ease, visibility 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
 
   /* Estado mejorado por JavaScript: se oculta arriba y aparece con scroll */
@@ -49,6 +49,7 @@
     background-color: var(--color-bg-surface);
     border-color: var(--color-accent);
     color: var(--color-accent);
+    transform: translateY(-2px);
   }
 
   .back-to-top:focus-visible {
@@ -59,6 +60,9 @@
   @media (prefers-reduced-motion: reduce) {
     .back-to-top {
       transition: none;
+    }
+    .back-to-top:hover {
+      transform: none;
     }
   }
 

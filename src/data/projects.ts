@@ -37,5 +37,8 @@ export const projects: Project[] = [
     ],
     repositoryUrl: 'https://github.com/OmarHrock/salesflow-platform',
     status: 'completed',
+    images: [
+      '/projects/salesflow/dashboard.webp',
+    ],
   },
 ];

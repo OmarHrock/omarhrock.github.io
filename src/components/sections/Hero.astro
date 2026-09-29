@@ -136,7 +136,7 @@ import { profile } from '../../data/profile';
     font-weight: var(--font-weight-semibold);
     border-radius: var(--radius-sm);
     text-decoration: none;
-    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     cursor: pointer;
     min-height: 44px;
   }
@@ -151,6 +151,8 @@ import { profile } from '../../data/profile';
     background-color: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
     color: #0b0f19;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
   }
 
   .btn-secondary {
@@ -163,6 +165,15 @@ import { profile } from '../../data/profile';
     background-color: var(--color-bg-surface-elevated);
     border-color: var(--color-accent);
     color: var(--color-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.12);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: none;
+    }
   }
 
   /* Columna Técnica */
