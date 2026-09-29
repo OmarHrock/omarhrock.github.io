@@ -23,9 +23,9 @@ import ProjectCard from '../projects/ProjectCard.astro';
   }
 
   .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
 
   .empty-message {

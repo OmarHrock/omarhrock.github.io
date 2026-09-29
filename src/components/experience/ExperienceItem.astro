@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { experience } = Astro.props;
+const isPrimary = Boolean(experience.current);
 
 // Formatear el periodo respetando las precisiones aprobadas
 let periodDisplay = '';
@@ -18,7 +19,7 @@ if (experience.current) {
 }
 ---
 
-<article class="experience-item">
+<article class={`experience-item ${isPrimary ? 'is-primary' : 'is-compact'}`}>
   <div class="timeline-indicator" aria-hidden="true">
     <div class="timeline-dot"></div>
     <div class="timeline-line"></div>
@@ -108,6 +109,31 @@ if (experience.current) {
 
   .experience-item:last-child .experience-content {
     margin-bottom: 0;
+  }
+
+  /* Variante compacta para trayectorias previas */
+  .experience-item.is-compact .timeline-dot {
+    background-color: var(--color-border-subtle);
+  }
+
+  .experience-item.is-compact .experience-content {
+    background-color: rgba(26, 34, 52, 0.35);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    gap: var(--space-xs);
+  }
+
+  .experience-item.is-compact .role-title {
+    font-size: var(--text-base);
+  }
+
+  .experience-item.is-compact .responsibilities-list {
+    gap: var(--space-xs);
+  }
+
+  .experience-item.is-compact .responsibility-item {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
   }
 
   .experience-header {

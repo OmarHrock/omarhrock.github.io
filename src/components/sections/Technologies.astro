@@ -70,7 +70,7 @@ const complementarySkills = skills.filter(
   .technologies-container {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-md);
   }
 
   /* 1. Stack Principal */
@@ -78,7 +78,7 @@ const complementarySkills = skills.filter(
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    padding: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
   }
 
   .block-title {
@@ -87,7 +87,7 @@ const complementarySkills = skills.filter(
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-accent);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
   .chips-list {
@@ -102,8 +102,8 @@ const complementarySkills = skills.filter(
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-sm);
-    padding: 0.5rem 0.9rem;
-    font-size: var(--text-base);
+    padding: 0.4rem 0.8rem;
+    font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
   }
@@ -112,12 +112,18 @@ const complementarySkills = skills.filter(
   .tech-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 540px) {
     .tech-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 880px) {
+    .tech-grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -125,10 +131,10 @@ const complementarySkills = skills.filter(
     background-color: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
   }
 
   .category-title {

@@ -24,12 +24,6 @@ const stepNumber = String(index + 1).padStart(2, '0');
     </header>
 
     <p class="step-description">{step.description}</p>
-
-    {step.aiAssisted && (
-      <div class="step-meta">
-        <span class="ai-support-indicator">IA como apoyo</span>
-      </div>
-    )}
   </div>
 </li>
 
@@ -112,23 +106,6 @@ const stepNumber = String(index + 1).padStart(2, '0');
     line-height: var(--line-height-base);
     color: var(--color-text-secondary);
     margin: 0;
-  }
-
-  /* Indicador secundario discreto de IA */
-  .step-meta {
-    padding-top: var(--space-xs);
-  }
-
-  .ai-support-indicator {
-    display: inline-block;
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    background-color: var(--color-bg-primary);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    padding: 0.15rem 0.5rem;
-    font-weight: var(--font-weight-normal);
-    letter-spacing: 0.01em;
   }
 
   @media (max-width: 480px) {
