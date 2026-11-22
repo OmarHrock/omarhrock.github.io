@@ -17,28 +17,32 @@ if (education.startDate && education.endDate) {
 
 <article class="education-card">
   <header class="education-header">
-    <h4 class="degree-title">{education.degree}</h4>
-    <p class="institution-period">
+    <div class="education-meta-row">
       <span class="institution-name">{education.institution}</span>
       {periodDisplay && (
-        <>
-          <span class="meta-separator" aria-hidden="true">·</span>
-          <span class="period-text">{periodDisplay}</span>
-        </>
+        <span class="period-badge">{periodDisplay}</span>
       )}
-    </p>
+    </div>
+    <h4 class="degree-title">{education.degree}</h4>
   </header>
 </article>
 
 <style>
   .education-card {
-    background-color: var(--color-bg-surface);
+    background: linear-gradient(
+      180deg,
+      var(--color-bg-surface) 0%,
+      var(--color-bg-secondary) 100%
+    );
     border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
     border-radius: var(--radius-md);
-    padding: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
+    justify-content: center;
+    flex-grow: 1;
+    box-shadow: var(--shadow-sm);
   }
 
   .education-header {
@@ -47,37 +51,40 @@ if (education.startDate && education.endDate) {
     gap: var(--space-xs);
   }
 
-  /* El título del programa mantiene máxima jerarquía e importancia visual */
-  .degree-title {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    margin: 0;
-    line-height: var(--line-height-tight);
-  }
-
-  .institution-period {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+  .education-meta-row {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: var(--space-xs);
-    margin: 0;
   }
 
   .institution-name {
-    font-weight: var(--font-weight-medium);
-    color: var(--color-accent);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.01em;
   }
 
-  .meta-separator {
-    color: var(--color-text-muted);
-  }
-
-  .period-text {
-    color: var(--color-text-muted);
+  .period-badge {
     font-family: var(--font-family-mono);
     font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    background-color: rgba(23, 23, 25, 0.65);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.55rem;
+    white-space: nowrap;
+  }
+
+  /* El título del programa mantiene máxima jerarquía e importancia visual */
+  .degree-title {
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--tracking-normal);
   }
 </style>

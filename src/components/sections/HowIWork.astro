@@ -13,33 +13,31 @@ const aiTools = [
 ---
 
 <div class="how-i-work">
-  <!-- 4 fases macro del flujo de desarrollo -->
-  <ol class="work-process-list">
+  <!-- 4 fases macro del flujo de desarrollo: 2 columnas en escritorio, 1 en móvil -->
+  <ol class="work-process-grid">
     {workProcess.map((step, index) => (
       <WorkProcessStep step={step} index={index} />
     ))}
   </ol>
 
-  <!-- Bloque secundario compacto: IA como apoyo transversal -->
+  <!-- Bloque secundario y subordinado: IA como apoyo transversal con supervisión humana -->
   <aside class="ai-support-block">
     <span id="ai-assisted" class="anchor-target" aria-hidden="true"></span>
 
-    <!-- Encabezado del bloque -->
-    <header class="ai-header">
-      <span class="ai-eyebrow">APOYO TRANSVERSAL</span>
-      <h3 class="ai-title">IA en el flujo de desarrollo</h3>
-    </header>
-
-    <!-- Contenido principal: 2 columnas en >= 900px, 1 columna en < 900px -->
-    <div class="ai-content-grid">
-      <div class="ai-col">
-        <span class="col-heading">Alcance técnico</span>
+    <div class="ai-top-row">
+      <!-- Encabezado y alcance -->
+      <div class="ai-main-col">
+        <header class="ai-header">
+          <span class="ai-eyebrow">APOYO TRANSVERSAL</span>
+          <h3 class="ai-title">IA en el flujo de desarrollo</h3>
+        </header>
         <p class="ai-description">
           Utilizo herramientas de inteligencia artificial como soporte transversal para optimizar actividades de investigación técnica, análisis, desarrollo, debugging, testing y documentación.
         </p>
       </div>
 
-      <div class="ai-col">
+      <!-- Herramientas aplicadas -->
+      <div class="ai-tools-col">
         <span class="col-heading">Herramientas aplicadas</span>
         <ul class="tools-chips" aria-label="Herramientas de IA utilizadas como apoyo">
           {aiTools.map((tool) => (
@@ -49,9 +47,9 @@ const aiTools = [
       </div>
     </div>
 
-    <!-- Supervisión y control humano -->
+    <!-- Supervisión y control humano explícito -->
     <footer class="ai-governance-footer">
-      <div class="governance-header">
+      <div class="governance-badge">
         <svg class="governance-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M8 1.5L2 4.5V7.5C2 11.2 4.55 14.65 8 15.5C11.45 14.65 14 11.2 14 7.5V4.5L8 1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M6 8L7.5 9.5L10.5 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -70,25 +68,33 @@ const aiTools = [
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 860px;
     gap: var(--space-lg);
   }
 
-  .work-process-list {
+  /* Grilla de 4 fases: 1 columna en móvil, 2x2 en escritorio para lectura ágil */
+  .work-process-grid {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 
-  /* Bloque secundario integrado de IA */
+  @media (min-width: 768px) {
+    .work-process-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+  }
+
+  /* Bloque secundario y discreto de IA */
   .ai-support-block {
     position: relative;
-    padding: var(--space-md) var(--space-lg);
-    background-color: var(--color-bg-surface);
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    background-color: rgba(29, 29, 32, 0.55);
     border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-accent);
+    border-left: 2px solid var(--color-border-subtle);
     border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
@@ -107,56 +113,48 @@ const aiTools = [
     scroll-margin-top: calc(var(--header-height) + 1.5rem);
   }
 
-  .ai-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  .ai-eyebrow {
-    display: block;
-    font-size: var(--text-xs);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-accent);
-  }
-
-  .ai-title {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    margin: 0;
-    line-height: var(--line-height-tight);
-  }
-
-  /* Grid de contenido */
-  .ai-content-grid {
+  .ai-top-row {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-md);
     align-items: start;
   }
 
-  @media (min-width: 900px) {
-    .ai-content-grid {
-      grid-template-columns: 1fr 1fr;
+  @media (min-width: 860px) {
+    .ai-top-row {
+      grid-template-columns: 1.35fr 0.65fr;
       gap: var(--space-xl);
     }
   }
 
-  .ai-col {
+  .ai-main-col {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
   }
 
-  .col-heading {
-    font-size: var(--text-xs);
+  .ai-header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .ai-eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: 0.6875rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-muted);
+  }
+
+  .ai-title {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--line-height-tight);
   }
 
   .ai-description {
@@ -166,26 +164,42 @@ const aiTools = [
     margin: 0;
   }
 
+  .ai-tools-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .col-heading {
+    font-family: var(--font-family-mono);
+    font-size: 0.6875rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
   .tools-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-xs);
+    gap: 0.35rem;
     padding: 0;
     margin: 0;
     list-style: none;
   }
 
   .tool-chip {
+    font-family: var(--font-family-mono);
     font-size: var(--text-xs);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-    background-color: var(--color-bg-primary);
-    border: 1px solid var(--color-border-subtle);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-secondary);
+    background-color: rgba(23, 23, 25, 0.65);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     padding: 0.25rem 0.55rem;
   }
 
-  /* Gobernanza y supervisión humana */
+  /* Gobernanza y supervisión humana destacada como criterio técnico */
   .ai-governance-footer {
     display: flex;
     flex-direction: column;
@@ -194,10 +208,30 @@ const aiTools = [
     border-top: 1px solid var(--color-border);
   }
 
-  .governance-header {
-    display: flex;
+  @media (min-width: 768px) {
+    .ai-governance-footer {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-md);
+    }
+  }
+
+  .governance-badge {
+    display: inline-flex;
     align-items: center;
-    gap: var(--space-xs);
+    gap: 0.4rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-accent-subtle);
+    border: 1px solid var(--color-accent-border);
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .governance-badge {
+      align-self: center;
+    }
   }
 
   .governance-icon {
@@ -206,15 +240,16 @@ const aiTools = [
   }
 
   .governance-label {
-    font-size: var(--text-xs);
+    font-family: var(--font-family-mono);
+    font-size: 0.6875rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-text-muted);
+    color: var(--color-accent);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-wide);
   }
 
   .governance-text {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     line-height: var(--line-height-base);
     color: var(--color-text-secondary);
     margin: 0;

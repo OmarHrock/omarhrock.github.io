@@ -9,6 +9,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 1.5rem);
+  -webkit-text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -28,10 +29,19 @@ html {
 
 body {
   background-color: var(--color-bg-primary);
+  background-image: radial-gradient(
+    ellipse 80% 420px at 50% -130px,
+    rgba(242, 140, 88, 0.045),
+    transparent 75%
+  );
+  background-repeat: no-repeat;
   color: var(--color-text-primary);
   font-family: var(--font-family-sans);
   font-size: var(--text-base);
   line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -42,13 +52,14 @@ body.menu-open {
 }
 
 ::selection {
-  background-color: rgba(56, 189, 248, 0.25);
+  background-color: rgba(242, 140, 88, 0.24);
   color: var(--color-text-primary);
 }
 
 :focus-visible {
   outline: var(--focus-outline);
   outline-offset: var(--focus-offset);
+  border-radius: 3px;
 }
 
 h1,
@@ -60,10 +71,13 @@ h6 {
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
   font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
 }
 
 h1 {
   font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
 }
 
 h2 {
@@ -72,10 +86,12 @@ h2 {
 
 h3 {
   font-size: var(--text-xl);
+  letter-spacing: var(--tracking-normal);
 }
 
 p {
   color: var(--color-text-secondary);
+  text-wrap: pretty;
 }
 
 a {

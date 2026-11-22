@@ -15,5 +15,6 @@ export interface Project {
   images?: string[];
   demoUrl?: string;
   repositoryUrl?: string;
+  isRepositoryPrivate?: boolean;
   status: ProjectStatus;
 }

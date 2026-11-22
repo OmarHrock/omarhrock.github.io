@@ -7,12 +7,22 @@ interface Props {
 }
 
 const { id, title, eyebrow, class: className } = Astro.props;
+const hasHeader = Boolean(title || eyebrow);
 ---
 
 <section id={id} class:list={['site-section', className]}>
   <div class="container">
-    {eyebrow && <span class="section-eyebrow">{eyebrow}</span>}
-    {title && <h2 class="section-title">{title}</h2>}
+    {hasHeader && (
+      <header class="section-header">
+        {eyebrow && <span class="section-eyebrow">{eyebrow}</span>}
+        {title && (
+          <div class="section-title-row">
+            <h2 class="section-title">{title}</h2>
+            <span class="section-rule" aria-hidden="true"></span>
+          </div>
+        )}
+      </header>
+    )}
     <div class="section-content">
       <slot />
     </div>
@@ -22,8 +32,8 @@ const { id, title, eyebrow, class: className } = Astro.props;
 <style>
   .site-section {
     scroll-margin-top: calc(var(--header-height) + 1.5rem);
-    padding-top: var(--space-2xl);
-    padding-bottom: var(--space-2xl);
+    padding-top: clamp(2.75rem, 5.5vw, var(--space-3xl));
+    padding-bottom: clamp(2.75rem, 5.5vw, var(--space-3xl));
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -31,20 +41,49 @@ const { id, title, eyebrow, class: className } = Astro.props;
     border-bottom: none;
   }
 
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: clamp(1.5rem, 3vw, var(--space-xl));
+  }
+
   .section-eyebrow {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-family-mono);
     font-size: var(--text-xs);
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-wide);
     color: var(--color-accent);
-    margin-bottom: var(--space-xs);
+  }
+
+  .section-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
   }
 
   .section-title {
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-lg);
-    letter-spacing: -0.01em;
+    font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .section-rule {
+    height: 1px;
+    flex-grow: 1;
+    background: linear-gradient(
+      90deg,
+      var(--color-border-subtle) 0%,
+      rgba(62, 62, 68, 0.12) 100%
+    );
   }
 
   .section-content {
